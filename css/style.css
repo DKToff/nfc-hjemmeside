@@ -1,0 +1,724 @@
+/* ==========================================================================
+   Nordic Facility Cleaning (NFC) – fælles stylesheet
+   Indhold:
+   1. Farver og grundindstillinger
+   2. Typografi
+   3. Layout-hjælpere og knapper
+   4. Header og navigation
+   5. Forside-hero (vinduet der bliver pudset)
+   6. Sektioner på forsiden
+   7. Undersider (sidehoved, ydelser, faner, FAQ)
+   8. Kontaktformular
+   9. Footer
+   10. Mobil og reduceret bevægelse
+   ========================================================================== */
+
+/* 1. Farver og grundindstillinger ---------------------------------------- */
+:root {
+  --navy: #0b2a5b;        /* mørk blå – hero, footer, mørke flader */
+  --blue: #1557c0;        /* primær blå – knapper og links */
+  --blue-bright: #2f7bea; /* lys blå – fremhævning på mørk baggrund */
+  --ice: #eaf2fc;         /* meget lys blå – rolige flader */
+  --mist: #cfe0f6;        /* lys blå – streger og kanter */
+  --white: #ffffff;
+  --ink: #0e1f3a;         /* tekstfarve */
+  --muted: #4a5b78;       /* dæmpet tekst */
+
+  --font: "Schibsted Grotesk", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --wrap: 1160px;
+  --gap: clamp(1.25rem, 3vw, 2.5rem);
+  --radius-s: 8px;
+  --radius-l: 22px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { max-width: 100%; display: block; }
+
+a { color: var(--blue); }
+
+:focus-visible {
+  outline: 3px solid var(--blue-bright);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* 2. Typografi ------------------------------------------------------------ */
+h1, h2, h3 {
+  margin: 0 0 0.5em;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+h1 { font-size: clamp(2.3rem, 5.2vw, 4.1rem); font-weight: 800; letter-spacing: -0.035em; }
+h2 { font-size: clamp(1.75rem, 3.2vw, 2.6rem); }
+h3 { font-size: 1.3rem; letter-spacing: -0.01em; }
+
+p { margin: 0 0 1em; max-width: 62ch; }
+
+.lead { font-size: clamp(1.1rem, 1.6vw, 1.3rem); line-height: 1.5; color: var(--muted); }
+
+/* 3. Layout-hjælpere og knapper ------------------------------------------- */
+.wrap {
+  width: min(100% - 2.5rem, var(--wrap));
+  margin-inline: auto;
+}
+
+.section { padding-block: clamp(3.5rem, 8vw, 6.5rem); }
+.section--flush-top { padding-top: 0; }
+.section--ice + .section--flush-top,
+.section--navy + .section--flush-top { padding-top: clamp(2.5rem, 5vw, 4rem); }
+.section--ice { background: var(--ice); }
+.section--navy { background: var(--navy); color: var(--white); }
+.section--navy .lead { color: #c9dbf5; }
+
+.section__head { margin-bottom: clamp(2rem, 4vw, 3.25rem); max-width: 46rem; }
+
+.btn {
+  display: inline-block;
+  padding: 0.85em 1.5em;
+  border: 2px solid var(--blue);
+  border-radius: var(--radius-s);
+  background: var(--blue);
+  color: var(--white);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+/* Hover: knappen skifter farve, løfter sig og får skygge */
+.btn:hover {
+  background: var(--navy);
+  border-color: var(--navy);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -8px rgba(11, 42, 91, 0.5);
+}
+.btn:active { transform: translateY(0); box-shadow: none; }
+
+.btn--light { background: var(--white); border-color: var(--white); color: var(--navy); }
+.btn--light:hover { background: var(--ice); border-color: var(--ice); color: var(--navy); }
+
+.btn--ghost { background: transparent; border-color: rgba(255, 255, 255, 0.55); color: var(--white); }
+.btn--ghost:hover { background: rgba(255, 255, 255, 0.12); border-color: var(--white); }
+
+.btn-row { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 1.75rem; }
+
+.text-link { font-weight: 600; text-underline-offset: 0.25em; text-decoration-thickness: 1px; }
+.text-link:hover,
+.path:hover .text-link { text-decoration-thickness: 3px; }
+.section--navy .text-link,
+.path--business .text-link { color: var(--white); }
+
+.checklist { list-style: none; margin: 0; padding: 0; }
+.checklist li {
+  position: relative;
+  padding-left: 1.9rem;
+  margin-bottom: 0.55rem;
+}
+.checklist li::before {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  top: 0.38em;
+  width: 0.95rem;
+  height: 0.5rem;
+  border-left: 2.5px solid var(--blue);
+  border-bottom: 2.5px solid var(--blue);
+  transform: rotate(-45deg);
+}
+.path--business .checklist li::before { border-color: #9cc4ff; }
+
+/* Synlig markering af tekst, du selv skal udfylde */
+.placeholder {
+  padding: 1rem 1.25rem;
+  border: 2px dashed var(--blue-bright);
+  border-radius: var(--radius-s);
+  background: var(--ice);
+  color: var(--navy);
+}
+
+/* 4. Header og navigation -------------------------------------------------- */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  background: var(--navy);
+  color: var(--white);
+  border-radius: var(--radius-s);
+}
+.skip-link:focus { top: 1rem; }
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--white);
+  border-bottom: 1px solid var(--mist);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-height: 4.5rem;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--navy);
+  text-decoration: none;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.logo__mark {
+  display: grid;
+  place-items: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  border-radius: 10px 10px 10px 2px;
+  background: var(--navy);
+  color: var(--white);
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+.logo__name { font-size: 1.02rem; }
+
+.nav-toggle {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--mist);
+  border-radius: var(--radius-s);
+  background: var(--white);
+  color: var(--navy);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.nav-toggle__bars,
+.nav-toggle__bars::before,
+.nav-toggle__bars::after {
+  display: block;
+  width: 1.15rem;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+}
+.nav-toggle__bars { position: relative; }
+.nav-toggle__bars::before,
+.nav-toggle__bars::after { content: ""; position: absolute; left: 0; }
+.nav-toggle__bars::before { top: -6px; }
+.nav-toggle__bars::after { top: 6px; }
+
+.nav ul {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav a {
+  display: block;
+  padding: 0.55rem 0.9rem;
+  border-radius: var(--radius-s);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  position: relative;
+  transition: background-color 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+/* Hover: lys baggrund og en blå streg, der glider ind fra venstre */
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0.9rem;
+  right: 0.9rem;
+  bottom: 0.25rem;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--blue);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s;
+}
+.nav a:hover { background: var(--ice); color: var(--blue); }
+.nav a:hover::after,
+.nav a[aria-current="page"]::after { transform: scaleX(1); }
+.nav a[aria-current="page"] { color: var(--blue); }
+
+.nav a.nav__cta { margin-left: 0.5rem; background: var(--blue); color: var(--white); }
+.nav a.nav__cta::after { display: none; }
+.nav a.nav__cta:hover {
+  background: var(--navy);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -8px rgba(11, 42, 91, 0.5);
+}
+.nav a.nav__cta[aria-current="page"] { background: var(--navy); color: var(--white); }
+
+/* 5. Forside-hero ---------------------------------------------------------- */
+.hero {
+  background: var(--navy);
+  color: var(--white);
+  overflow: hidden;
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: var(--gap);
+  padding-block: clamp(3rem, 7vw, 5.5rem);
+}
+
+.hero h1 { margin-bottom: 0.45em; }
+.hero .lead { color: #c9dbf5; max-width: 34rem; }
+
+/* Vinduet: en dugget rude der bliver trukket ren, når siden åbner */
+.window {
+  position: relative;
+  justify-self: end;
+  width: min(100%, 23rem);
+  aspect-ratio: 5 / 6;
+  border: 14px solid var(--white);
+  border-radius: 6px;
+  background: #dcecfc;
+  box-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.55);
+}
+.window::after { /* vindueskarm */
+  content: "";
+  position: absolute;
+  left: -28px;
+  right: -28px;
+  bottom: -30px;
+  height: 16px;
+  background: var(--white);
+  border-radius: 3px;
+}
+
+.window__scene { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+.window__haze {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 22% 30%, rgba(255, 255, 255, 0.35) 0 9%, transparent 10%),
+    radial-gradient(circle at 68% 58%, rgba(255, 255, 255, 0.28) 0 12%, transparent 13%),
+    radial-gradient(circle at 40% 82%, rgba(255, 255, 255, 0.3) 0 7%, transparent 8%),
+    rgba(124, 150, 186, 0.88);
+  clip-path: inset(0 0 0 0);
+  animation: wipe-haze 1.5s 0.5s cubic-bezier(0.6, 0, 0.3, 1) forwards;
+}
+
+.window__blade {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: 0;
+  width: 9px;
+  margin-left: -4px;
+  background: var(--navy);
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.7);
+  opacity: 0;
+  animation: wipe-blade 1.5s 0.5s cubic-bezier(0.6, 0, 0.3, 1) forwards;
+}
+
+.window__bars::before,
+.window__bars::after {
+  content: "";
+  position: absolute;
+  background: var(--white);
+}
+.window__bars::before { left: 50%; top: 0; bottom: 0; width: 10px; margin-left: -5px; }
+.window__bars::after { top: 42%; left: 0; right: 0; height: 10px; }
+
+@keyframes wipe-haze {
+  to { clip-path: inset(0 0 0 100%); }
+}
+@keyframes wipe-blade {
+  0% { left: 0; opacity: 1; }
+  92% { left: 100%; opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+/* 6. Sektioner på forsiden -------------------------------------------------- */
+
+/* To veje ind: privat hjem (størst) og virksomheder */
+.paths {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 1.25rem;
+}
+
+.path {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.75rem, 4vw, 3rem);
+  border-radius: var(--radius-l);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+/* Hover: hele boksen løfter sig, og hele boksen er et link */
+.path:hover { transform: translateY(-4px); box-shadow: 0 22px 40px -22px rgba(11, 42, 91, 0.55); }
+.path .text-link::after { content: ""; position: absolute; inset: 0; border-radius: var(--radius-l); }
+.path h2 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); }
+.path .checklist { margin-block: 0.75rem 1.75rem; }
+.path .text-link { margin-top: auto; align-self: flex-start; }
+
+.path--private { background: var(--ice); }
+.path--business { background: var(--blue); color: var(--white); }
+
+/* Tre løfter på mørk baggrund */
+.promises {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+}
+.promise { padding-top: 1.5rem; border-top: 2px solid rgba(255, 255, 255, 0.28); }
+.promise svg { width: 2.4rem; height: 2.4rem; margin-bottom: 1.1rem; color: #9cc4ff; }
+.promise p { color: #c9dbf5; margin-bottom: 0; }
+
+/* Forløb i tre trin (en rigtig rækkefølge, derfor nummereret) */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: step;
+}
+.steps li { counter-increment: step; }
+.steps li::before {
+  content: counter(step);
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 1.1rem;
+  border-radius: 50%;
+  background: var(--blue);
+  color: var(--white);
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+.steps p { color: var(--muted); margin-bottom: 0; }
+
+/* Afsluttende opfordring */
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem 3rem;
+  padding: clamp(2rem, 5vw, 3.5rem);
+  border-radius: var(--radius-l);
+  background: var(--navy);
+  color: var(--white);
+}
+.cta h2 { margin-bottom: 0.3em; }
+.cta p { margin: 0; color: #c9dbf5; }
+
+/* 7. Undersider -------------------------------------------------------------- */
+.page-head {
+  background: var(--ice);
+  border-bottom: 1px solid var(--mist);
+  padding-block: clamp(2.75rem, 6vw, 4.5rem);
+}
+.page-head h1 { font-size: clamp(2.1rem, 4.4vw, 3.4rem); max-width: 18ch; }
+.page-head .lead { max-width: 40rem; margin-bottom: 0; }
+
+/* Ydelser som rækker: navn til venstre, forklaring til højre */
+.service-list { margin: 0; border-top: 2px solid var(--navy); }
+.service-list > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: 0.5rem var(--gap);
+  padding-block: 1.6rem;
+  border-bottom: 1px solid var(--mist);
+}
+.service-list dt { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.01em; }
+.service-list dd { margin: 0; color: var(--muted); max-width: 58ch; }
+
+/* Faner: hvad vi gør i hvert rum */
+.tabs__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.tabs__tab {
+  padding: 0.65em 1.15em;
+  border: 2px solid var(--mist);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--navy);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+.tabs__tab:hover { border-color: var(--blue); background: var(--ice); }
+.tabs__tab[aria-selected="true"]:hover { background: var(--blue); border-color: var(--blue); }
+.tabs__tab[aria-selected="true"] { background: var(--navy); border-color: var(--navy); color: var(--white); }
+
+.tabs__panel {
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border-radius: var(--radius-l);
+  background: var(--white);
+}
+.tabs__panel[hidden] { display: none; }
+.tabs__panel .checklist { columns: 2; column-gap: var(--gap); }
+.tabs__panel .checklist li { break-inside: avoid; }
+
+/* Brancher på erhvervssiden */
+.sectors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+.sector {
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border: 1px solid var(--mist);
+  border-radius: var(--radius-l);
+  background: var(--white);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+/* Hover: blå kant og let løft */
+.sector:hover { transform: translateY(-3px); border-color: var(--blue); box-shadow: 0 18px 34px -22px rgba(11, 42, 91, 0.5); }
+.sector svg { width: 2.4rem; height: 2.4rem; margin-bottom: 1rem; color: var(--blue); }
+.sector p { color: var(--muted); }
+.sector .checklist { font-size: 1rem; }
+.sector--other { grid-column: 1 / -1; background: var(--ice); border-color: var(--ice); }
+
+/* Tre punkter i lys udgave (erhverv, om os) */
+.points {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+}
+.point { padding-top: 1.25rem; border-top: 2px solid var(--navy); }
+.point p { color: var(--muted); margin-bottom: 0; }
+
+/* Ofte stillede spørgsmål */
+.faq { max-width: 50rem; border-top: 2px solid var(--navy); }
+.faq details { border-bottom: 1px solid var(--mist); }
+.faq summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 1.2rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+.faq summary { transition: color 0.15s; }
+.faq summary:hover { color: var(--blue); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+";
+  flex: none;
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--blue);
+}
+.faq details[open] summary::after { content: "–"; }
+.faq details p { color: var(--muted); padding-bottom: 1.2rem; margin: 0; }
+
+/* Om os: tekst og faktaboks side om side */
+.about,
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+.facts {
+  margin: 0;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border-radius: var(--radius-l);
+  background: var(--navy);
+  color: var(--white);
+}
+.facts div { padding-block: 0.9rem; border-bottom: 1px solid rgba(255, 255, 255, 0.2); }
+.facts div:first-child { padding-top: 0; }
+.facts div:last-child { padding-bottom: 0; border-bottom: 0; }
+.facts dt { font-size: 0.92rem; color: #9cc4ff; }
+.facts dd { margin: 0; font-weight: 600; }
+
+/* 8. Kontaktformular ---------------------------------------------------------- */
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.form { display: grid; gap: 1.15rem; }
+.form__row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.15rem; }
+
+.field label,
+.field legend {
+  display: block;
+  margin-bottom: 0.35rem;
+  padding: 0;
+  font-weight: 600;
+}
+.field input[type="text"],
+.field input[type="email"],
+.field input[type="tel"],
+.field textarea {
+  width: 100%;
+  padding: 0.8rem 0.9rem;
+  border: 2px solid var(--mist);
+  border-radius: var(--radius-s);
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+}
+.field input:hover,
+.field textarea:hover { border-color: #9dbfe9; }
+.field input:focus,
+.field textarea:focus { border-color: var(--blue); outline: none; box-shadow: 0 0 0 3px rgba(47, 123, 234, 0.25); }
+.field textarea { min-height: 9rem; resize: vertical; }
+.field [aria-invalid="true"] { border-color: #c0392b; }
+.field__error { display: block; margin-top: 0.3rem; color: #a02718; font-size: 0.95rem; }
+
+fieldset.field { margin: 0; padding: 0; border: 0; }
+.choice { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.choice label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--mist);
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.choice input { accent-color: var(--blue); width: 1.05rem; height: 1.05rem; margin: 0; }
+.choice label:has(input:checked) { border-color: var(--blue); background: var(--ice); }
+
+.form__status { margin: 0; font-weight: 600; color: var(--navy); }
+.form__status:empty { display: none; }
+
+.contact-info a { color: var(--white); text-underline-offset: 0.2em; }
+
+/* 9. Footer ------------------------------------------------------------------- */
+.site-footer {
+  background: var(--navy);
+  color: #c9dbf5;
+  padding-block: clamp(2.5rem, 5vw, 4rem) 1.5rem;
+  font-size: 1rem;
+}
+.site-footer a { color: var(--white); text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: var(--gap);
+  padding-bottom: 2.5rem;
+}
+.site-footer .logo { color: var(--white); margin-bottom: 1rem; }
+.site-footer .logo__mark { background: var(--white); color: var(--navy); }
+.site-footer h2 { font-size: 1.05rem; letter-spacing: 0; color: var(--white); margin-bottom: 0.8rem; }
+.site-footer ul { list-style: none; margin: 0; padding: 0; }
+.site-footer li { margin-bottom: 0.45rem; }
+.site-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.95rem;
+}
+.site-footer__bottom p { margin: 0; max-width: none; }
+
+/* 10. Mobil og reduceret bevægelse --------------------------------------------- */
+@media (max-width: 900px) {
+  .nav-toggle { display: inline-flex; }
+
+  .nav {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    padding: 0.75rem 1.25rem 1.25rem;
+    background: var(--white);
+    border-bottom: 1px solid var(--mist);
+    box-shadow: 0 18px 30px -18px rgba(11, 42, 91, 0.35);
+  }
+  .nav.is-open { display: block; }
+  .nav ul { flex-direction: column; align-items: stretch; gap: 0.15rem; }
+  .nav a { padding: 0.85rem 0.75rem; font-size: 1.1rem; }
+  .nav a::after { display: none; }
+  .nav a[aria-current="page"] { box-shadow: inset 3px 0 0 var(--blue); }
+  .nav a.nav__cta { margin: 0.5rem 0 0; text-align: center; }
+
+  .hero__inner,
+  .paths,
+  .about,
+  .split,
+  .contact { grid-template-columns: minmax(0, 1fr); }
+
+  .window { justify-self: start; width: min(78%, 19rem); margin-bottom: 2rem; }
+
+  .promises,
+  .steps,
+  .points { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+
+  .site-footer__grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 640px) {
+  .logo__name { font-size: 0.95rem; }
+  .sectors,
+  .form__row { grid-template-columns: minmax(0, 1fr); }
+  .service-list > div { grid-template-columns: minmax(0, 1fr); }
+  .tabs__panel .checklist { columns: 1; }
+  .btn-row .btn { flex: 1 1 100%; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .window__haze,
+  .window__blade { animation: none; display: none; }
+  .btn, .nav a, .nav a::after, .tabs__tab, .path, .sector { transition: none; }
+  .btn:hover, .nav a.nav__cta:hover, .path:hover, .sector:hover { transform: none; }
+}
