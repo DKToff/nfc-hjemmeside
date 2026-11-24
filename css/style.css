@@ -669,6 +669,137 @@ fieldset.field { margin: 0; padding: 0; border: 0; }
 }
 .site-footer__bottom p { margin: 0; max-width: none; }
 
+/* 9b. Prisberegner ----------------------------------------------------------- */
+.page-head--compact { padding-block: clamp(2rem, 4vw, 3rem); }
+.page-head__links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1.25rem; margin: 1.25rem 0 0; color: var(--muted); }
+.section--quote { padding-top: clamp(2rem, 4vw, 3rem); }
+
+.btn--ghost-dark { background: transparent; border-color: var(--mist); color: var(--navy); }
+.btn--ghost-dark:hover { background: var(--ice); border-color: var(--blue); color: var(--navy); box-shadow: none; }
+
+.quote {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: start;
+}
+.quote__side { position: sticky; top: 6rem; display: grid; gap: 1rem; }
+
+.quote__estimate {
+  padding: 1.5rem;
+  border-radius: var(--radius-l);
+  background: var(--navy);
+  color: var(--white);
+}
+.quote__progress { margin: 0 0 1rem; font-size: 0.95rem; font-weight: 600; color: #9cc4ff; }
+.quote__label { margin: 0; font-size: 0.95rem; color: #c9dbf5; }
+.quote__price { margin: 0.15rem 0 0.75rem; font-size: clamp(1.6rem, 2.6vw, 2rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; }
+.quote__note { margin: 0; font-size: 0.9rem; line-height: 1.45; color: #c9dbf5; }
+
+.quote__left { padding: 1.25rem 1.5rem; border: 1px solid var(--mist); border-radius: var(--radius-l); }
+.quote__left-title { margin: 0 0 0.5rem; font-weight: 700; color: var(--navy); }
+.quote__left-list { margin: 0; padding-left: 1.2rem; color: var(--muted); font-size: 0.97rem; }
+.quote__left-list li { margin-bottom: 0.25rem; }
+
+.quote__form { min-width: 0; }
+.quote__title { font-size: clamp(1.5rem, 2.6vw, 2rem); margin-bottom: 0.3em; }
+.quote__title:focus { outline: none; }
+.quote__intro { color: var(--muted); margin-bottom: 1.5rem; }
+
+.quote__field { margin: 0 0 1.75rem; padding: 0; border: 0; min-width: 0; }
+.quote__field > label,
+.quote__field > legend { display: block; margin-bottom: 0.6rem; padding: 0; font-weight: 700; font-size: 1.05rem; color: var(--navy); }
+.quote__req { margin-left: 0.4rem; font-size: 0.85rem; font-weight: 600; color: var(--muted); }
+.quote__help { margin: -0.3rem 0 0.75rem; font-size: 0.95rem; color: var(--muted); }
+
+.quote__opts { display: grid; grid-template-columns: repeat(auto-fill, minmax(11.5rem, 1fr)); gap: 0.6rem; }
+.quote__opt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  min-height: 4.25rem;
+  padding: 0.8rem 1rem;
+  border: 2px solid var(--mist);
+  border-radius: var(--radius-s);
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+.quote__opt:hover { border-color: #9dbfe9; background: #f6f9fe; }
+.quote__opt[aria-pressed="true"] { border-color: var(--blue); background: var(--ice); }
+.quote__opt-label { font-weight: 700; line-height: 1.25; }
+.quote__opt-delta { font-size: 0.88rem; font-weight: 600; color: var(--muted); }
+.quote__opt[aria-pressed="true"] .quote__opt-delta { color: var(--blue); }
+
+.quote__field input[type="text"],
+.quote__field input[type="email"],
+.quote__field input[type="tel"],
+.quote__field input[type="date"],
+.quote__field input[type="number"],
+.quote__field select,
+.quote__field textarea {
+  width: 100%;
+  padding: 0.8rem 0.9rem;
+  border: 2px solid var(--mist);
+  border-radius: var(--radius-s);
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+}
+.quote__field textarea { min-height: 7rem; resize: vertical; }
+.quote__field input:focus,
+.quote__field select:focus,
+.quote__field textarea:focus { border-color: var(--blue); outline: none; box-shadow: 0 0 0 3px rgba(47, 123, 234, 0.25); }
+.quote__field--short { max-width: 16rem; }
+
+.quote__range { display: flex; align-items: center; gap: 1rem; }
+.quote__range input { flex: 1; accent-color: var(--blue); height: 2rem; }
+.quote__range output { min-width: 5.5rem; padding: 0.45rem 0.7rem; border-radius: var(--radius-s); background: var(--ice); font-weight: 700; text-align: center; color: var(--navy); }
+
+.quote__stepper { display: flex; align-items: stretch; }
+.quote__stepper input { text-align: center; border-radius: 0 !important; border-left: 0 !important; border-right: 0 !important; -moz-appearance: textfield; }
+.quote__stepper input::-webkit-inner-spin-button,
+.quote__stepper input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.quote__stepper button {
+  flex: none;
+  width: 3rem;
+  border: 2px solid var(--mist);
+  background: var(--ice);
+  color: var(--navy);
+  font: inherit;
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.quote__stepper button:first-child { border-radius: var(--radius-s) 0 0 var(--radius-s); }
+.quote__stepper button:last-child { border-radius: 0 var(--radius-s) var(--radius-s) 0; }
+.quote__stepper button:hover { background: var(--mist); }
+
+.quote__error { margin: 0 0 1rem; font-weight: 600; color: #a02718; }
+.quote__error:empty { display: none; }
+.quote__nav { display: flex; justify-content: space-between; gap: 1rem; padding-top: 1.25rem; border-top: 1px solid var(--mist); }
+.quote__nav .quote__next { margin-left: auto; }
+.quote__nav[hidden], .quote__back[hidden] { display: none; }
+
+@media (max-width: 900px) {
+  .quote { grid-template-columns: minmax(0, 1fr); }
+  .quote__side { position: sticky; top: 4.5rem; z-index: 5; gap: 0; }
+  .quote__estimate { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 0 1rem; padding: 0.9rem 1.1rem; border-radius: var(--radius-s); }
+  .quote__progress { grid-column: 1 / -1; margin-bottom: 0.25rem; font-size: 0.85rem; }
+  .quote__label { font-size: 0.85rem; }
+  .quote__price { grid-row: 2 / 4; grid-column: 2; margin: 0; font-size: 1.25rem; text-align: right; }
+  .quote__note { display: none; }
+  .quote__left { display: none; }
+}
+@media (max-width: 640px) {
+  .quote__opts { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .quote__field--short { max-width: none; }
+}
+
 /* 10. Mobil og reduceret bevægelse --------------------------------------------- */
 @media (max-width: 900px) {
   .nav-toggle { display: inline-flex; }
@@ -719,6 +850,6 @@ fieldset.field { margin: 0; padding: 0; border: 0; }
   html { scroll-behavior: auto; }
   .window__haze,
   .window__blade { animation: none; display: none; }
-  .btn, .nav a, .nav a::after, .tabs__tab, .path, .sector { transition: none; }
+  .btn, .nav a, .nav a::after, .tabs__tab, .path, .sector, .quote__opt { transition: none; }
   .btn:hover, .nav a.nav__cta:hover, .path:hover, .sector:hover { transform: none; }
 }
